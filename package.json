@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
+    "dev": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +17,11 @@
   "bugs": {
     "url": "https://github.com/bM7tcHF88GBxDni/authentication-and-authorisation/issues"
   },
-  "homepage": "https://github.com/bM7tcHF88GBxDni/authentication-and-authorisation#readme"
+  "homepage": "https://github.com/bM7tcHF88GBxDni/authentication-and-authorisation#readme",
+  "dependencies": {
+    "express": "^4.17.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
 }
