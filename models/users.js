@@ -30,7 +30,16 @@ export async function createUser(user) {
     const values = [firstName, lastName, email, encryptedPassword, ""];
     values.forEach(e => console.log(e))
 
-    const response = await query(sql, values);
-    
-    return response.rows;
+    try {
+        const response = await query(sql, values);
+        return response.rows;
+    } catch (error) {
+        return {
+            error: "Postgres SQL Error",
+            code: error.code,
+            detail: error.detail,
+            table: error.table,
+            constraint: error.constraint,
+        };
+    }
 }
