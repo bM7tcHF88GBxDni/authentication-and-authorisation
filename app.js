@@ -1,6 +1,6 @@
 import express from "express";
 
-import { createUser, validateRegisterInput } from "./models/users.js";
+import { createUser, validateRegisterInput, getAllUsers } from "./models/users.js";
 
 const app = express();
 const PORT = 3000;
@@ -9,6 +9,23 @@ app.use(express.json());
 
 app.get("/", async (req, res) => {
     res.send("<h1>This is the main route.</h1>");
+})
+
+app.get("/users", async (req, res) => {
+    const data = await getAllUsers();
+
+    if (data.length === 0) {
+        res.json({
+            success: true,
+            payload: "No records in table."
+        });
+        return;
+    }
+
+    res.json({
+        success: true,
+        payload: data
+    })
 })
 
 app.post("/register", async (req, res) => {

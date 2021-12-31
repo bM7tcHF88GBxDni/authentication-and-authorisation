@@ -3,6 +3,13 @@ import jwt from "jsonwebtoken";
 import { query } from "../database/index.js";
 import { auth } from "../config.js";
 
+export async function getAllUsers() {
+    const sql = `SELECT * FROM users;`
+
+    const response = await query(sql);
+    return response.rows;
+}
+
 export function validateRegisterInput(data) {
     const { firstName, lastName, email, password } = data;
     return !(firstName && lastName && email && password);
