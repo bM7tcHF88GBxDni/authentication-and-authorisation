@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon app.js",
+    "dev": "nodemon -r dotenv/config app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,9 +19,11 @@
   },
   "homepage": "https://github.com/bM7tcHF88GBxDni/authentication-and-authorisation#readme",
   "dependencies": {
-    "express": "^4.17.2"
+    "express": "^4.17.2",
+    "pg": "^8.7.1"
   },
   "devDependencies": {
+    "dotenv": "^10.0.0",
     "nodemon": "^2.0.15"
   }
 }
