@@ -1,5 +1,7 @@
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 import { query } from "../database/index.js";
+import { auth } from "../config.js";
 
 export function validateRegisterInput(data) {
     const { firstName, lastName, email, password } = data;
@@ -24,11 +26,14 @@ export async function createUser(user) {
     //encrypt password
     const encryptedPassword = await bcrypt.hash(password, 10);
 
+    //create jwt token
+    const token = jwt.sign({ email }, auth.privateKey, { expiresIn: "2h" });
+
     //add user to database with query
     const sql = 
     `INSERT INTO users (first_name, last_name, email, password, token) VALUES ($1, $2, $3, $4, $5) RETURNING *;`
-    const values = [firstName, lastName, email, encryptedPassword, ""];
-    values.forEach(e => console.log(e))
+    const values = [firstName, lastName, email, encryptedPassword, token];
+    values.forEach(e => console.log(e))  
 
     try {
         const response = await query(sql, values);

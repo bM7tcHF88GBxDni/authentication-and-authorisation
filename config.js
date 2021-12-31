@@ -5,3 +5,7 @@ export const pgConnection = {
     password: process.env.PG_PASSWORD,
     port: process.env.PG_PORT
 }
+
+export const auth = {
+    privateKey: process.env.JWT_PRIVATE_KEY
+}
