@@ -1,7 +1,6 @@
 import express from "express";
-import res from "express/lib/response";
 
-import { validateRegisterInput } from "./models/users.js";
+import { createUser, validateRegisterInput } from "./models/users.js";
 
 const app = express();
 const PORT = 3000;
@@ -12,9 +11,7 @@ app.get("/", async (req, res) => {
     res.send("<h1>This is the main route.</h1>");
 })
 
-app.post("/register", async () => {
-    const data = req.query;
-    console.log("req.query", data);
+app.post("/register", async (req, res) => {
 
     const valid = validateRegisterInput(req.query);
     if (!valid) {
@@ -22,10 +19,14 @@ app.post("/register", async () => {
             success: false,
             payload: "One or more input fields are missing data."
         });
-    }
+        return;
+    };
 
     //add user
-
+    res.json({
+        success: true,
+        payload: await createUser(req.query)
+    });
 })
 
 app.listen(PORT, ()=> {
