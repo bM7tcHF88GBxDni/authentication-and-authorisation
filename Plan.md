@@ -30,7 +30,18 @@ Create API route for /login
     Check if user exists, return if false
     Check input password with database password using bcrypt.compare()
         If login successful, create new JWT token, return it and add it to database
+Create authorisation middleware that checks for JWT token when accessing sensitive routes such as /profile
+    Create middleware/auth.js folder, create a middleware function(req, res, next)
+        Check for req.query token as we will send the token using req.query
+        If no token, redirect/return to previous page?
+        Otherwise, jwt.verify token with private key
+        If token is wrong, redirect/return to previous page?
+        Otherwise, token exists and is valid so call next() so the user can move on to access the /profile route
+    Export this middleware function
+Create the /profile route endpoint
+    You can pass in the middleware function as a parameter here after the path, before the callback function that will do a final response
+    If successful, send some h1
 
-Create authorisation middleware that checks for JWT token
+
 Store token in localStorage https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage
 ```

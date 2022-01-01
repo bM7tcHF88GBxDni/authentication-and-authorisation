@@ -1,4 +1,3 @@
-import bcrypt from "bcryptjs";
 import express from "express";
 
 import { createUser, validateRegisterInput, getAllUsers, validateLoginInput, login } from "./models/users.js";
