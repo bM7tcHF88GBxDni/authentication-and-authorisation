@@ -76,11 +76,38 @@ export async function checkUserExists(user) {
     return response.rows[0]; //if user exists, return user
 }
 
-export async function checkPassword(userInput) {
-    const { password } = userInput;
+export async function login(userInput) {
+    // http://localhost:3000/login?email=test1@test.com&password=test1
+    const { password, email } = userInput;
 
     const dbUser = await checkUserExists(userInput);
     const dbPassword = dbUser.password;
 
-    return bcrypt.compare(password, dbPassword);
+    const login = await bcrypt.compare(password, dbPassword);
+
+    if (!login) { //if passwords don't match
+        return "Login failed. Credentials did not match.";
+    }
+
+    //generate JWT token and return to user
+    const token = jwt.sign({ email }, auth.privateKey, { expiresIn: "2h" });
+
+    //add JWT to database
+    const sql = `UPDATE users SET token = $1 WHERE email = $2 RETURNING *;`
+    const values = [token, email];
+
+    try {
+        const response = await query(sql, values);
+    } catch (error) {
+        return {
+            error: "Postgres SQL Error",
+            code: error.code,
+            detail: error.detail,
+            table: error.table,
+            constraint: error.constraint,
+        };
+    }
+
+    //login successful, return the token as payload
+    return token;
 }

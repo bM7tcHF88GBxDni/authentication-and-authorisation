@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs";
 import express from "express";
 
-import { createUser, validateRegisterInput, getAllUsers, validateLoginInput, checkUserExists, checkPassword } from "./models/users.js";
+import { createUser, validateRegisterInput, getAllUsers, validateLoginInput, checkUserExists, login } from "./models/users.js";
 
 const app = express();
 const PORT = 3000;
@@ -50,17 +50,13 @@ app.post("/login", async (req, res) => {
         return;
     }
 
-    //check password
-    const login = await checkPassword(req.query);
-    if (!login) {
-        res.json({
-            success: true,
-            payload: "Login failed. Credentials did not match."
-        });
-        return;
-    }
+    //attempt login
+    const data = await login(req.query);
 
-    res.send("<h1>You have successfully logged in.</h1>");
+    res.json({
+        success: true,
+        payload: data
+    });
 });
 
 app.post("/register", async (req, res) => {
