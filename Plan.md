@@ -24,7 +24,13 @@ Create API routes for /register
         Add user details to database
         Create a signed JWT token with jwt.sign()
         Respond with user + token for now
+Create API route for /login
+    req.query for email, password
+        validate input- check all fields exist
+    Check if user exists, return if false
+    Check input password with database password using bcrypt.compare()
+        If login successful, create new JWT token, return it and add it to database
 
-
+Create authorisation middleware that checks for JWT token
 Store token in localStorage https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage
 ```
