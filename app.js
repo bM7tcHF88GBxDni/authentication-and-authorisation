@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs";
 import express from "express";
 
-import { createUser, validateRegisterInput, getAllUsers, validateLoginInput, checkUserExists, login } from "./models/users.js";
+import { createUser, validateRegisterInput, getAllUsers, validateLoginInput, login } from "./models/users.js";
 
 const app = express();
 const PORT = 3000;
@@ -36,16 +36,6 @@ app.post("/login", async (req, res) => {
         res.json({
             success: false,
             payload: "One or more input fields are missing data."
-        });
-        return;
-    }
-
-    //check user exists
-    const user = await checkUserExists(req.query);
-    if (!user) {
-        res.json({
-            success: true,
-            payload: "User does not exist."
         });
         return;
     }

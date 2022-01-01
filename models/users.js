@@ -61,7 +61,7 @@ export function validateLoginInput(data) {
     return email && password;
 }
 
-export async function checkUserExists(user) {
+async function checkUserExists(user) {
     //sanitise input
     const email = user.email.toLowerCase();
 
@@ -81,6 +81,10 @@ export async function login(userInput) {
     const { password, email } = userInput;
 
     const dbUser = await checkUserExists(userInput);
+    if (!dbUser) {
+        return "User does not exist.";
+    }
+    
     const dbPassword = dbUser.password;
 
     const login = await bcrypt.compare(password, dbPassword);
