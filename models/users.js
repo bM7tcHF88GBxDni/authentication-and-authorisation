@@ -12,7 +12,7 @@ export async function getAllUsers() {
 
 export function validateRegisterInput(data) {
     const { firstName, lastName, email, password } = data;
-    return !(firstName && lastName && email && password);
+    return firstName && lastName && email && password;
 }
 
 export async function createUser(user) {
@@ -58,7 +58,7 @@ export async function createUser(user) {
 
 export function validateLoginInput(data) {
     const { email, password } = data;
-    return !(email && password);
+    return email && password;
 }
 
 export async function checkUserExists(user) {
@@ -73,7 +73,14 @@ export async function checkUserExists(user) {
         return false;
     }
 
-    return response.rows; //if user exists, return user
+    return response.rows[0]; //if user exists, return user
 }
 
-export async function checkPassword()
+export async function checkPassword(userInput) {
+    const { password } = userInput;
+
+    const dbUser = await checkUserExists(userInput);
+    const dbPassword = dbUser.password;
+
+    return bcrypt.compare(password, dbPassword);
+}
