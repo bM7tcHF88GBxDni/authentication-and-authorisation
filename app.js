@@ -1,6 +1,7 @@
 import express from "express";
 
 import { createUser, validateRegisterInput, getAllUsers, validateLoginInput, login } from "./models/users.js";
+import { authorisation } from "./middleware/auth.js";
 
 const app = express();
 const PORT = 3000;
@@ -64,6 +65,10 @@ app.post("/register", async (req, res) => {
         success: true,
         payload: await createUser(req.query)
     });
+})
+
+app.get("/profile", authorisation, (req, res) => {
+    res.send("<h1>You have successfully accessed the profile route.</h1>");
 })
 
 app.listen(PORT, ()=> {
