@@ -65,13 +65,15 @@ export async function checkUserExists(user) {
     //sanitise input
     const email = user.email.toLowerCase();
 
-    const sql = `SELECT * FROM users WHERE LOWER(email) = $1;`
+    const sql = `SELECT * FROM users WHERE LOWER(email) = $1;`;
     const values = [email];
     
     const response = await query(sql, values);
-    if (response.rowCount === 0) { //if no users with this email exist
+    if (response.rowCount === 0) { //if user doesn't exist, return false
         return false;
     }
 
-    return true;
+    return response.rows; //if user exists, return user
 }
+
+export async function checkPassword()

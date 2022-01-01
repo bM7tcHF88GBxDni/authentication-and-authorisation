@@ -40,8 +40,8 @@ app.post("/login", async (req, res) => {
     }
 
     //check user exists
-    const exists = await checkUserExists(req.query);
-    if (!exists) {
+    const user = await checkUserExists(req.query);
+    if (!user) {
         res.json({
             success: true,
             payload: "User does not exist."
@@ -49,7 +49,7 @@ app.post("/login", async (req, res) => {
         return;
     }
 
-    //compare passwords
+    //check password
 });
 
 app.post("/register", async (req, res) => {
