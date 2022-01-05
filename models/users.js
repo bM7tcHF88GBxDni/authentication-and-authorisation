@@ -11,7 +11,9 @@ export async function getAllUsers() {
 }
 
 export function validateRegisterInput(data) {
-    const { firstName, lastName, email, password } = data;
+    const { email, password } = data;
+    const firstName = data.firstname; 
+    const lastName = data.lastname;
     return firstName && lastName && email && password;
 }
 
