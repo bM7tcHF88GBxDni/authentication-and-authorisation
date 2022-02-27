@@ -1,12 +1,47 @@
 # Creating an authentication app using JSON Web Tokens
-##### Dependencies:
+
+### Why?
+<details>
+<summary>the Personal</summary>
+<br>
+In the past, when I was learning web development on my own in 2017/8, I found authentication and authorisation to be a big blocker in my learning, in fact, it was one of the few aspects that I was not able to overcome at the time despite understanding the protocols at a high level and being able to use PassportJS successfully with a third party authentication and authorization platform.
+<br>
+<br>
+During the School of Code Christmas break, I will face authentication and authorisation again but this time at a lower level. So far at SoC we have learned the following things of import to this project:
+<br>
+<br>
+    
+- Express API routes, middleware and models
+- Postman testing
+- Postgres database and queries
+    
+</details>
+
+<details>
+<summary>the Purpose</summary>
+<br>
+At SoC, we've learned how to create full stack projects but we've yet to cover user login or sessions. That's a pretty vital part of any application and I want to explore this subject to expand the potential applications that I can create. Authentication and authorisation are key tools for customising a user's experience.
+</details>
+
+## Overview of Features
+Developed and tested using Postman
+- users can sign up using the /register route
+    - password is hashed by bcrypt when stored to database 
+    - JWT is returned when successful
+- users can login using the /login route, JWT is returned
+    - password is compared to encrypted database password
+    - JWT is returned when successful
+- a low level form of authorisation for users when they access the /profile route
+    - denies access when user provides invalid or no JWT token (users must be logged in to access this route)
+
+#### Dependencies:
 
 node, express, node-postgres, jsonwebtoken, bcryptjs
 
 nodemon, dot env
 
-##### Plan:
-```
+#### Plan:
+```COBOL
 Create Express server
     Use node http module to createServer and listen on server instead of app
 Setup Heroku postgres db
