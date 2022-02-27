@@ -4,7 +4,7 @@
 <details>
 <summary>the Personal</summary>
 <br>
-In the past, when I was learning web development on my own in 2017/8, I found authentication and authorisation to be a big blocker in my learning, in fact, it was one of the few aspects that I was not able to overcome at the time despite understanding the protocols at a high level and being able to use PassportJS successfully with a third party authentication and authorization platform.
+In the past, when I was learning web development on my own in 2017/8, I found authentication and authorisation to be a big blocker in my learning, in fact, it was one of the few aspects that I was not able to overcome at the time despite understanding the protocols at a high level and being able to use PassportJS successfully with a third party authentication and authorisation platform.
 <br>
 <br>
 During the School of Code Christmas break, I will face authentication and authorisation again but this time at a lower level. So far at SoC we have learned the following things of import to this project:
@@ -31,7 +31,7 @@ Developed and tested using Postman
 - users can login using the /login route, JWT is returned
     - password is compared to encrypted database password
     - JWT is returned when successful
-- a low level form of authorisation for users when they access the /profile route
+- a simple scope of authorisation for users to access the /profile route
     - denies access when user provides invalid or no JWT token (users must be logged in to access this route)
 
 #### Dependencies:
@@ -77,6 +77,6 @@ Create the /profile route endpoint
     You can pass in the middleware function as a parameter here after the path, before the callback function that will do a final response
     If successful, send some h1
 
-
+Researched and tested but not implemented in this project as this repository does not have a front end.
 Store token in localStorage https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage
 ```
